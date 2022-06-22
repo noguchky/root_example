@@ -37,7 +37,7 @@ void draw_a_func_difficult() {
   //               "difficult_function"と同様に、引数が(Double_t*, Duoble_t*)で、戻り値がDouble_tである関数を指定する
   //   数値1   ... 関数の定義域(最小値)
   //   数値2   ... 関数の定義域(最大値)
-  //   数値3   ... 指定した関数の
+  //   数値3   ... 指定した関数のパラメータの数
   // [[参照]]
   // TF1::TF1 https://root.cern/doc/master/classTF1.html#aa8905d28455ed7be02019f20b9cc5827
 
