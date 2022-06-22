@@ -36,6 +36,18 @@ void draw_a_scatter_plot() {
   // [[参照]]
   // マーカーのスタイル一覧 https://root.cern.ch/doc/master/classTAttMarker.html#ATTMARKER2
 
+  // グラフの点の色を変更する
+  graph->SetMarkerColor(kRed);
+  // graph->SetMarkerColor(数値) について
+  //   数値 ... マーカーの色を表す数字
+  // [[参照]]
+  // TAttMarker::SetMarkerColor https://root.cern.ch/doc/master/classTAttMarker.html#a27f1eae16a3f990024e8a401ed034fa3
+  //
+  // kRed について
+  //   色を表す数字であり、具体的には kRed=632
+  // [[詳細]]
+  // 色の一覧 https://root.cern.ch/doc/master/classTColor.html#C01
+
   // グラフを散布図として描画
   graph->Draw("AP");
   // graph->Draw(文字列) について

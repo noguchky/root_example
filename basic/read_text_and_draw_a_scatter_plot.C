@@ -14,7 +14,7 @@ void read_text_and_draw_a_scatter_plot() {
 
   // ファイルを開く
   std::ifstream input_file;
-  input_file.open("./data/data_double_columns.txt");
+  input_file.open("../data/data_double_columns.txt");
   // input_file.open(文字列) について
   //   文字列 ... ファイル名
   //   絶対パスか、マクロを実行するディレクトリから見た相対パスを指定する
