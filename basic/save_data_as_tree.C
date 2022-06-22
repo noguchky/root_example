@@ -16,7 +16,7 @@ void save_data_as_tree() {
   func->SetParameter(3,  10);
 
   // 出力ファイルを作る
-  TFile* ofile = new TFile("../out/save_data.root", "RECREATE");;
+  TFile* output_file = new TFile("../out/save_data.root", "RECREATE");;
 
   // ツリーを作る
   TTree* tree = new TTree("tree", "title");
@@ -41,5 +41,5 @@ void save_data_as_tree() {
   tree->Write();
   
   // ファイルを閉じる
-  ofile->Close();
+  output_file->Close();
 }

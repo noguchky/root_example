@@ -15,14 +15,14 @@ void save_data_as_text() {
   func->SetParameter(3,  10);
 
   // 出力ファイルを作る
-  std::ofstream ofile;
-  ofile.open("../out/save_data.txt");
+  std::ofstream output_file;
+  output_file.open("../out/save_data.txt");
 
   // データを出力する
   for (Int_t i = 0; i < 100; ++i) {
-    ofile << i << " " << func->GetRandom() << std::endl;
+    output_file << i << " " << func->GetRandom() << std::endl;
   }
 
   // ファイルを閉じる
-  ofile.close();
+  output_file.close();
 }
