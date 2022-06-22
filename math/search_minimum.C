@@ -41,7 +41,7 @@ Result_t golden_section_search_minimum(const F& func, double from, double to, do
     }
   } while (std::abs(x1 - x4) > dx || std::abs(y1 - y4) > dy);
 
-  return y2 < y2 ? Result_t { x2, y2 } : Result_t { x3, y3 };
+  return y2 < y3 ? Result_t { x2, y2 } : Result_t { x3, y3 };
 }
 
 /**
