@@ -9,14 +9,22 @@
 
 /**
  * 任意の関数の積分を計算する関数
+ *   dxは積分の微微小幅
+ *   積分範囲はfromからはじまり、toを超えるまで積分を実行する
+ *   最終的に到達した積分範囲がxから出力される
+ *   int_a^b f(x) dx == int_b^a f(x) dx となる
  */
 template <typename F>
-double simpson_integration(const F& func, double from, double to, int nx) {
-  const double dx = (to - from) / nx;
+double simpson_integration(const F& func, double& x, double from, double to, double dx) {
+  if (from < to) {
+    dx = + std::abs(dx);
+  } else {
+    dx = - std::abs(dx);
+  }
 
   // 積分を実行
   double sum = 0.0;
-  double x = from;
+  x = from;
   sum -= func(x) * 0.5;
   if (from < to) {
     while (x < to) {
@@ -79,18 +87,18 @@ Double_t convoluted_landau_and_gauss(Double_t x, Double_t height, Double_t locat
   };
 
   // 積分を実行
-  Double_t sum = 0.0;
+  Double_t xx = 0.0, sum = 0.0;
   if (rangeOuter->lower < rangeInner->lower) {
-    const Int_t nx = (rangeInner->lower - rangeOuter->lower) / dxOuter + 1;
-    sum += simpson_integration(func, rangeOuter->lower, rangeInner->lower, nx);
+    // |  <-|    |    | 積分範囲の左側
+    sum -= simpson_integration(func, xx, rangeInner->lower, rangeOuter->lower, dxOuter);
   }
   {
-    const Int_t nx = (rangeInner->upper - rangeInner->lower) / dxInner + 1;
-    sum += simpson_integration(func, rangeInner->lower, rangeInner->upper, nx);
+    // |    |->  |    | 積分範囲の中央部分
+    sum += simpson_integration(func, xx, rangeInner->lower, rangeInner->upper, dxInner);
   }
-  if (rangeInner->upper < rangeOuter->upper) {
-    const Int_t nx = (rangeOuter->upper - rangeInner->upper) / dxOuter + 1;
-    sum += simpson_integration(func, rangeInner->upper, rangeOuter->upper, nx);
+  if (xx < rangeOuter->upper) {
+    // |    |    |->  | 積分範囲の右側
+    sum += simpson_integration(func, xx, xx, rangeOuter->upper, dxOuter);
   }
 
   return factor * sum;
