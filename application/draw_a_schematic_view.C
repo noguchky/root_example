@@ -179,14 +179,13 @@ void draw_a_schematic_view() {
   TF1* fParticleTrajectory[N];
   for (std::size_t i = 0; i < N; ++i) {
     fParticleTrajectory[i] = new TF1(Form("fParticleTrajectory_%lu", i), UnexpectedKick::ParticleTrajectory, xmin, xmax, 2);
-    fParticleTrajectory[i]->SetNpx(300);
     fParticleTrajectory[i]->SetLineColor(kBlack);
     fParticleTrajectory[i]->SetLineWidth(1);
+    fParticleTrajectory[i]->SetNpx(200); // 滑らかになるよう設定 (200点で関数を描画する)
 
     const Double_t phaseOffset = gRandom->Uniform(0, 1);
     const Double_t tuneShift   = 0.0;
     fParticleTrajectory[i]->SetParameters(phaseOffset, tuneShift);
-    fParticleTrajectory[i]->SetNpx(200); // 滑らかになるよう設定 (200点で関数を描画する)
   }
 
   TF1* fBunchTrajectory = new TF1("fBunchTrajectory", UnexpectedKick::BunchTrajectory, xmin, xmax, 2);
