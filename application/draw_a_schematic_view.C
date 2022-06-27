@@ -176,22 +176,23 @@ void draw_a_schematic_view() {
 
   // 内容物を作る
   const std::size_t N = 8;
-  TF1* gParticleTrajectory[N];
+  TF1* fParticleTrajectory[N];
   for (std::size_t i = 0; i < N; ++i) {
-    gParticleTrajectory[i] = new TF1(Form("gParticleTrajectory_%lu", i), UnexpectedKick::ParticleTrajectory, xmin, xmax, 2);
-    gParticleTrajectory[i]->SetNpx(300);
-    gParticleTrajectory[i]->SetLineColor(kBlack);
-    gParticleTrajectory[i]->SetLineWidth(1);
+    fParticleTrajectory[i] = new TF1(Form("fParticleTrajectory_%lu", i), UnexpectedKick::ParticleTrajectory, xmin, xmax, 2);
+    fParticleTrajectory[i]->SetNpx(300);
+    fParticleTrajectory[i]->SetLineColor(kBlack);
+    fParticleTrajectory[i]->SetLineWidth(1);
 
     const Double_t phaseOffset = gRandom->Uniform(0, 1);
     const Double_t tuneShift   = 0.0;
-    gParticleTrajectory[i]->SetParameters(phaseOffset, tuneShift);
+    fParticleTrajectory[i]->SetParameters(phaseOffset, tuneShift);
+    fParticleTrajectory[i]->SetNpx(200); // 滑らかになるよう設定 (200点で関数を描画する)
   }
 
-  TF1* fBunchTrajectory  = new TF1("fInjError" , UnexpectedKick::BunchTrajectory, xmin, xmax, 2);
-  TF1* fEnvelopeTop = new TF1("fEnvelopeT", UnexpectedKick::EnvelopeTop    , xmin, xmax, 2);
-  TF1* fEnvelopeBottom = new TF1("fEnvelopeB", UnexpectedKick::EnvelopeBottom , xmin, xmax, 2);
-  fBunchTrajectory->SetNpx(200); // 滑らかになるよう設定 (200点で関数を描画する)
+  TF1* fBunchTrajectory = new TF1("fBunchTrajectory", UnexpectedKick::BunchTrajectory, xmin, xmax, 2);
+  TF1* fEnvelopeTop     = new TF1("fEnvelopeTop"    , UnexpectedKick::EnvelopeTop    , xmin, xmax, 2);
+  TF1* fEnvelopeBottom  = new TF1("fEnvelopeBottom" , UnexpectedKick::EnvelopeBottom , xmin, xmax, 2);
+  fBunchTrajectory->SetNpx(200);
   fEnvelopeTop    ->SetNpx(200);
   fEnvelopeBottom ->SetNpx(200);
 
@@ -207,7 +208,7 @@ void draw_a_schematic_view() {
   fEnvelopeTop   ->Draw("same");
   fEnvelopeBottom->Draw("same");
   for (std::size_t i = 0; i < N; ++i) {
-    gParticleTrajectory[i]->Draw("same");
+    fParticleTrajectory[i]->Draw("same");
   }
   fBunchTrajectory->Draw("same");
 
