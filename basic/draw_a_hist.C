@@ -14,6 +14,9 @@ void draw_a_hist() {
   //   [4] ... ビンの右端の値
   // [[参照]]
   // TH1D::TH1D https://root.cern.ch/doc/master/classTH1D.html#a4e0536d7ab2c883c26b2e4ea5b540334
+  // 
+  // プログラム上の変数名(ここでは"hist")と、ヒストグラムの名前(ここでは"name")を、同じにする必要は全くない。
+  // ROOTが知っているのはヒストグラムの名前("name")であって、プログラム上の変数名("hist")ではない点に注意。
 
   // ヒストグラムに値を詰める
   hist->Fill(-1);

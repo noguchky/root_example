@@ -18,6 +18,13 @@ void save_data_as_text() {
   std::ofstream output_file;
   output_file.open("../out/save_data.txt");
 
+  // ファイルが正常に開けたかチェック
+  if (!output_file) {
+    // 開けなかった場合：エラー内容を表示して処理を終了
+    std::cout << "Error: output file was not opened." << std::endl;
+    return;
+  }
+
   // データを出力する
   for (Int_t i = 0; i < 100; ++i) {
     output_file << i << " " << func->GetRandom() << std::endl;

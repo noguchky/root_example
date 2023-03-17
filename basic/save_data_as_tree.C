@@ -16,7 +16,14 @@ void save_data_as_tree() {
   func->SetParameter(3,  10);
 
   // 出力ファイルを作る
-  TFile* output_file = new TFile("../out/save_data.root", "RECREATE");;
+  TFile* output_file = new TFile("../out/save_data.root", "RECREATE");
+  
+  // ファイルが正常に開けたかチェック
+  if (!output_file->IsOpen()) {
+    // 開けなかった場合：エラー内容を表示して処理を終了
+    std::cout << "Error: output file was not opened." << std::endl;
+    return;
+  }
 
   // ツリーを作る
   TTree* tree = new TTree("tree", "title");
@@ -24,7 +31,7 @@ void save_data_as_tree() {
   // ツリーに保存する項目を設定する
   Int_t val_id;
   tree->Branch("id", &val_id);
-  
+
   Double_t val_value;
   tree->Branch("value", &val_value);
 
